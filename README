@@ -1,7 +1,7 @@
 Thread Pool is meant to be an easy to use implementation of a fairly naive thread pool.  For example, here's some code that will download 100 google search queries in parallel.
 
 require 'open-uri'
-require 'thread_pool'
+require 'thread-pool'
 
 number_of_files = 100
 number_of_files.times do |i|
