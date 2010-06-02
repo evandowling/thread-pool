@@ -1,0 +1,22 @@
+Thread Pool is meant to be an easy to use implementation of a fairly naive thread pool.  For example, here's some code that will download 100 google search queries in parallel.
+
+require 'open-uri'
+require 'thread_pool'
+
+number_of_files = 100
+number_of_files.times do |i|
+	ThreadPool.give_work("http://www.google.com/search?q=#{i}",i) do |url,index|
+		data = open(url).read
+		f = File.new("google-#{i}",'w')
+		f.puts(data)
+		f.close
+	end
+end
+
+ThreadPool.start_up(number_of_files)
+
+while ThreadPool.num_executing > 0 or ThreadPool.queue_size > 0
+  sleep(1)
+end
+
+This approach of course has its limitations, and it's important to follow best practices with respect to share resources etc..., but it does make it very easy to distribute heavily I/O bound task across a number of non-blocking processes.
