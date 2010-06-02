@@ -1,4 +1,4 @@
-class ThreadPool
+class SimpleThreadPool
   class << self
     def start_up(thread_count)
       @thread_work_queues = {}
